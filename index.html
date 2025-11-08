@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Your Healing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --dark: #0f172a;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--light);
+        }
+        
+        .dancing-font {
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .floating-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            opacity: 0.15;
+            background-image: url('unnamed.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(100%) brightness(150%);
+        }
+        
+        .floating-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, var(--dark) 70%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .main-title {
+            font-size: 4.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: #cbd5e1;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.4);
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+        
+        .cta-button:hover::before {
+            opacity: 1;
+        }
+        
+        .image-gallery {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .gallery-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 20px;
+            object-fit: cover;
+            filter: grayscale(30%);
+            transition: all 0.5s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            opacity: 0.8;
+        }
+        
+        .gallery-img:hover {
+            filter: grayscale(0%);
+            transform: translateY(-10px) scale(1.05);
+            opacity: 1;
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.4);
+        }
+        
+        .pulse-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            opacity: 0.1;
+            animation: pulse 8s infinite ease-in-out;
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+        
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            bottom: 20%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+        
+        .circle-3 {
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            left: 15%;
+            animation-delay: 4s;
+        }
+        
+        .circle-4 {
+            width: 250px;
+            height: 250px;
+            bottom: 10%;
+            left: 20%;
+            animation-delay: 6s;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.1); opacity: 0.15; }
+            100% { transform: scale(1); opacity: 0.1; }
+        }
+        
+        .questionnaire-section {
+            position: relative;
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            display: none;
+            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
+        }
+        
+        .question-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .question-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+        
+        .option {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .option:hover {
+            transform: scale(1.02);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .wrong-option {
+            transition: all 0.5s ease;
+        }
+        
+        .correct-option {
+            background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+        
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ec4899"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat;
+            background-size: contain;
+            opacity: 0;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(20deg); opacity: 0; }
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 5px var(--accent), 0 0 10px var(--accent), 0 0 15px var(--accent), 0 0 20px var(--primary);
+        }
+        
+        .floating-element {
+            animation: floatElement 3s ease-in-out infinite;
+        }
+        
+        @keyframes floatElement {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .back-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .glow {
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="floating-bg"></div>
+        
+        <div class="pulse-circle circle-1"></div>
+        <div class="pulse-circle circle-2"></div>
+        <div class="pulse-circle circle-3"></div>
+        <div class="pulse-circle circle-4"></div>
+        
+        <div class="hero-content">
+            <h1 class="main-title dancing-font fade-in">For Your Healing</h1>
+            <p class="subtitle poppins fade-in">A futuristic journey to ease your mind and bring a smile to your face</p>
+            
+            <div class="mt-10 fade-in">
+                <button id="start-btn" class="cta-button glow">
+                    <i class="fas fa-play mr-2"></i> Begin Experience
+                </button>
+            </div>
+            
+            <div class="image-gallery fade-in">
+                <img src="1761591722241_1761592033621.jpg" alt="Memory 1" class="gallery-img floating-element" style="animation-delay: 0.2s;">
+                <img src="Gemini_Generated_Image_1wou541wou541wou.png" alt="Memory 2" class="gallery-img floating-element" style="animation-delay: 0.4s;">
+                <img src="Gemini_Generated_Image_xilipnxilipnxili.png" alt="Memory 3" class="gallery-img floating-element" style="animation-delay: 0.6s;">
+                <img src="20251027_220950.jpg" alt="Memory 4" class="gallery-img floating-element" style="animation-delay: 0.8s;">
+                <img src="20251027_221316.jpg" alt="Memory 5" class="gallery-img floating-element" style="animation-delay: 1s;">
+            </div>
+            
+            <div class="mt-12 text-center text-slate-400 poppins">
+                <p class="text-lg"><i class="fas fa-heart text-rose-500 mr-2"></i> Designed to bring you comfort and joy</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Questionnaire Section -->
+    <section id="questionnaire-section" class="questionnaire-section">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-8">
+                <button id="back-btn" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <h2 class="text-2xl font-bold neon-text">Personalized Questionnaire</h2>
+                <div class="w-24"></div> <!-- Spacer for balance -->
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full mb-10">
+                <div class="flex justify-between text-sm text-slate-400 mb-2">
+                    <span>Progress</span>
+                    <span id="progress-text">0/20</span>
+                </div>
+                <div class="w-full bg-slate-700 rounded-full h-2.5">
+                    <div id="progress-bar" class="progress-bar h-2.5 rounded-full" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Questionnaire Container -->
+            <div id="questionnaire" class="w-full">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+
+            <!-- Completion Message (Initially Hidden) -->
+            <div id="completion-message" class="hidden mt-12 text-center max-w-2xl mx-auto fade-in">
+                <div class="question-card p-8">
+                    <div class="text-6xl text-rose-500 mb-4 pulse">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h2 class="dancing-font text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-purple-500 mb-4">Questionnaire Complete!</h2>
+                    <p class="text-slate-300 text-lg mb-6">I hope this brought a smile to your face and made you forget about your headache for a while. You're amazing just the way you are!</p>
+                    <div class="flex justify-center space-x-4">
+                        <div class="pulse text-rose-500 text-3xl"><i class="fas fa-heart"></i></div>
+                        <div class="pulse text-purple-500 text-3xl" style="animation-delay: 0.3s;"><i class="fas fa-heart"></i></div>
+                        <div class="pulse text-cyan-500 text-3xl" style="animation-delay: 0.6s;"><i class="fas fa-heart"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Questionnaire data
+        const questions = [
+            {
+                question: "What's the one thing that can instantly make my day better?",
+                options: [
+                    "A good book",
+                    "A cup of coffee",
+                    "Seeing your smile",
+                    "Listening to One Direction"
+                ],
+                correct: 2
+            },
+            {
+                question: "Which season perfectly describes your beauty?",
+                options: [
+                    "Winter - pure and serene",
+                    "Monsoon - refreshing and lively",
+                    "Summer - bright and vibrant",
+                    "Autumn - graceful and golden"
+                ],
+                correct: 2
+            },
+            {
+                question: "If you were a character in 'The Summer I Turned Pretty', who would you be?",
+                options: [
+                    "Belly - the heart of the story",
+                    "Taylor - bold and confident",
+                    "Susannah - warm and nurturing",
+                    "A unique character that's even more special"
+                ],
+                correct: 3
+            },
+            {
+                question: "What color makes you feel most powerful and beautiful?",
+                options: [
+                    "Blue like the ocean",
+                    "White like clouds",
+                    "Red like passion",
+                    "Pink like blossoms"
+                ],
+                correct: 2
+            },
+            {
+                question: "Which accessory completes your perfect outfit?",
+                options: [
+                    "A statement necklace",
+                    "Elegant bangles",
+                    "Beautiful Jhumkas",
+                    "A delicate anklet"
+                ],
+                correct: 2
+            },
+            {
+                question: "If Dr. House had to diagnose what's special about you, what would he say?",
+                options: [
+                    "It's definitely lupus",
+                    "A rare combination of intelligence and beauty",
+                    "An inexplicable case of perfection",
+                    "She's faking it... just kidding, she's genuinely amazing"
+                ],
+                correct: 1
+            },
+            {
+                question: "Which One Direction song describes our connection?",
+                options: [
+                    "What Makes You Beautiful",
+                    "Story of My Life",
+                    "Perfect",
+                    "You & I"
+                ],
+                correct: 2
+            },
+            {
+                question: "What's your ideal way to spend a quiet evening?",
+                options: [
+                    "Watching medical dramas",
+                    "Reading in an empty house",
+                    "Listening to old Bollywood ghazals",
+                    "All of the above"
+                ],
+                correct: 3
+            },
+            {
+                question: "If you were a book character, what would your special power be?",
+                options: [
+                    "Healing others with your smile",
+                    "Making people fall in love with your words",
+                    "Brightening any room you enter",
+                    "All of the above and more"
+                ],
+                correct: 3
+            },
+            {
+                question: "What makes the hills of Himachal even more beautiful?",
+                options: [
+                    "The snow-capped peaks",
+                    "The apple orchards",
+                    "You studying medicine there",
+                    "The peaceful monasteries"
+                ],
+                correct: 2
+            },
+            {
+                question: "Which quality of yours is most captivating?",
+                options: [
+                    "Your intelligence",
+                    "Your kindness",
+                    "Your strength",
+                    "The way you light up any conversation"
+                ],
+                correct: 3
+            },
+            {
+                question: "If Conrad from 'The Summer I Turned Pretty' met you, what would he say?",
+                options: [
+                    "You're complicated in the best way",
+                    "You're worth the risk",
+                    "You're the summer I've been waiting for",
+                    "All of the above"
+                ],
+                correct: 3
+            },
+            {
+                question: "What's your secret talent that always surprises people?",
+                options: [
+                    "Remembering song lyrics perfectly",
+                    "Making people feel special",
+                    "Balancing studies and passions",
+                    "All of the above"
+                ],
+                correct: 3
+            },
+            {
+                question: "Which Bollywood ghazal describes your essence?",
+                options: [
+                    "Chupke Chupke - mysterious and beautiful",
+                    "Aapki Nazron Ne Samjha - wise and perceptive",
+                    "Hoshwalon Ko Khabar - unforgettable and enchanting",
+                    "All of them and more"
+                ],
+                correct: 3
+            },
+            {
+                question: "What's the one thing that can make me smile even on my worst day?",
+                options: [
+                    "A good joke",
+                    "Your voice",
+                    "A cute animal video",
+                    "Thinking about you"
+                ],
+                correct: 3
+            },
+            {
+                question: "If you were a medical specialty, which would you be?",
+                options: [
+                    "Cardiology - you have my heart",
+                    "Neurology - you're always on my mind",
+                    "Ophthalmology - you're a sight for sore eyes",
+                    "All of the above"
+                ],
+                correct: 3
+            },
+            {
+                question: "What makes you the most beautiful person I know?",
+                options: [
+                    "Your outer beauty",
+                    "Your intelligence",
+                    "Your kind heart",
+                    "The unique combination of all your qualities"
+                ],
+                correct: 3
+            },
+            {
+                question: "If we were in a Bollywood movie, what would our song be about?",
+                options: [
+                    "A summer romance",
+                    "A meeting of minds",
+                    "A love that heals",
+                    "All of the above"
+                ],
+                correct: 3
+            },
+            {
+                question: "What's the one thing I'd never change about you?",
+                options: [
+                    "Your love for books",
+                    "Your taste in music",
+                    "Your determination",
+                    "Anything - you're perfect as you are"
+                ],
+                correct: 3
+            },
+            {
+                question: "How do you manage to be both strong and gentle at the same time?",
+                options: [
+                    "It's a Himachali trait",
+                    "It's your medical training",
+                    "It's just who you are",
+                    "It's one of your many magical qualities"
+                ],
+                correct: 3
+            }
+        ];
+
+        // Current question index
+        let currentQuestion = 0;
+        let correctAnswers = 0;
+
+        // DOM Elements
+        const heroSection = document.getElementById('hero');
+        const questionnaireSection = document.getElementById('questionnaire-section');
+        const startBtn = document.getElementById('start-btn');
+        const backBtn = document.getElementById('back-btn');
+
+        // Initialize the questionnaire
+        function initQuestionnaire() {
+            displayQuestion(currentQuestion);
+            updateProgress();
+        }
+
+        // Display a question
+        function displayQuestion(index) {
+            const questionnaire = document.getElementById('questionnaire');
+            const question = questions[index];
+            
+            let optionsHTML = '';
+            question.options.forEach((option, i) => {
+                optionsHTML += `
+                    <div class="option wrong-option p-4 mb-3 rounded-xl text-slate-300 text-center transition-all duration-300 ease-in-out" 
+                         onmouseover="moveOption(this)" 
+                         onclick="selectOption(this, ${i}, ${question.correct})">
+                        ${option}
+                    </div>
+                `;
+            });
+            
+            questionnaire.innerHTML = `
+                <div class="question-card p-6 mb-6 fade-in">
+                    <h2 class="text-xl font-semibold text-slate-200 mb-4">${question.question}</h2>
+                    <div class="options">
+                        ${optionsHTML}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Move wrong options away when hovered
+        function moveOption(element) {
+            if (!element.classList.contains('correct-option')) {
+                // Generate random movement
+                const x = (Math.random() * 200 - 100) + 'px';
+                const y = (Math.random() * 100 - 50) + 'px';
+                element.style.transform = `translate(${x}, ${y})`;
+                
+                // Reset after a short delay
+                setTimeout(() => {
+                    if (!element.classList.contains('correct-option')) {
+                        element.style.transform = 'translate(0, 0)';
+                    }
+                }, 1000);
+            }
+        }
+
+        // Select an option
+        function selectOption(element, selectedIndex, correctIndex) {
+            const options = document.querySelectorAll('.option');
+            
+            // If this is the correct option
+            if (selectedIndex === correctIndex) {
+                element.classList.remove('wrong-option');
+                element.classList.add('correct-option');
+                correctAnswers++;
+                
+                // Create floating hearts
+                createHearts(element);
+                
+                // Move to next question after a delay
+                setTimeout(() => {
+                    currentQuestion++;
+                    if (currentQuestion < questions.length) {
+                        displayQuestion(currentQuestion);
+                        updateProgress();
+                    } else {
+                        showCompletionMessage();
+                    }
+                }, 1500);
+            }
+        }
+
+        // Create floating hearts animation
+        function createHearts(element) {
+            const rect = element.getBoundingClientRect();
+            const heartsContainer = document.createElement('div');
+            heartsContainer.className = 'hearts';
+            
+            for (let i = 0; i < 10; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = Math.random() * rect.width + 'px';
+                heart.style.top = Math.random() * rect.height + 'px';
+                heart.style.animation = `float ${1 + Math.random()}s ease-in forwards`;
+                heartsContainer.appendChild(heart);
+            }
+            
+            element.appendChild(heartsContainer);
+            
+            // Remove hearts after animation completes
+            setTimeout(() => {
+                heartsContainer.remove();
+            }, 2000);
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = (currentQuestion / questions.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            document.getElementById('progress-text').textContent = `${currentQuestion}/${questions.length}`;
+        }
+
+        // Show completion message
+        function showCompletionMessage() {
+            document.getElementById('questionnaire').classList.add('hidden');
+            document.getElementById('completion-message').classList.remove('hidden');
+            
+            // Update progress to 100%
+            document.getElementById('progress-bar').style.width = '100%';
+            document.getElementById('progress-text').textContent = `${questions.length}/${questions.length}`;
+        }
+
+        // Event Listeners
+        startBtn.addEventListener('click', () => {
+            heroSection.style.display = 'none';
+            questionnaireSection.style.display = 'block';
+            initQuestionnaire();
+        });
+
+        backBtn.addEventListener('click', () => {
+            questionnaireSection.style.display = 'none';
+            heroSection.style.display = 'flex';
+            // Reset questionnaire
+            currentQuestion = 0;
+            correctAnswers = 0;
+            document.getElementById('completion-message').classList.add('hidden');
+            document.getElementById('questionnaire').classList.remove('hidden');
+        });
+
+        // Initialize the questionnaire when the page loads
+        window.onload = () => {
+            // Add any additional initialization if needed
+        };
+    </script>
+</body>
+</html>
